@@ -155,7 +155,61 @@
   linear-gradient(90deg, rgba(0,0,0,0.83) 35%, rgba(0,0,0,0.2) 70%),
   url("hero-lumiere.png") no-repeat right center/cover;
     }
+    
+#color-mixer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.07), rgba(255,255,255,0.025));
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  color: white;
+  padding: 70px 7%;
+  text-align: center;
+}
 
+.color-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-weight: bold;
+}
+
+input[type="color"] {
+  width: 120px;
+  height: 55px;
+  border: 2px solid var(--red);
+  border-radius: 12px;
+  cursor: pointer;
+  padding: 4px;
+  background: transparent;
+}
+
+#mixButton {
+  background: var(--red);
+  color: white;
+  padding: 14px 28px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 8px;
+  text-transform: uppercase;
+}
+
+#mixButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(215, 15, 24, 0.35);
+}
+
+#result {
+  width: 220px;
+  height: 120px;
+  margin-top: 10px;
+  border: 2px solid #fff;
+  border-radius: 18px;
+}
+    
     .hero::before,
     .hero::after {
       content: "";
@@ -629,47 +683,6 @@
     object-fit: contain;
   }
 
-  #color-mixer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #222;
-  color: white;
-  padding: 20px;
-}
-
-.color-selector {
-  margin: 10px 0;
-}
-
-input[type="color"] {
-  width: 100px;
-  height: 40px;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-}
-
-button {
-  background-color: #f39c12;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  margin-top: 20px;
-  font-size: 16px;
-  border-radius: 5px;
-}
-
-button:hover {
-  background-color: #e67e22;
-}
-
-#result {
-  margin-top: 20px;
-  border: 2px solid #fff;
-}
-  
   </style>
 </head>
 <body>
@@ -916,7 +929,7 @@ button:hover {
         return;
       }
 
-      const whatsappNumber = '584243283555';
+      const whatsappNumber = '584243772331';
       const text = `Hola, soy ${name}. Teléfono: ${phone}. Me interesa el curso de ${course}. Mensaje: ${message}`;
       const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`;
 
@@ -959,7 +972,9 @@ function mixColors(color1, color2) {
 
 // Función para convertir RGB a hex
 function rgbToHex(rgb) {
-  return `#${(1 << 24) | (rgb.r << 16) | (rgb.g << 8) | rgb.b}.toString(16).slice(1)`;
+  return "#" + [rgb.r, rgb.g, rgb.b]
+    .map(x => x.toString(16).padStart(2, "0"))
+    .join("");
 }
   </script>
 </body>
