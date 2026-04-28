@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Academia Lumière | Arte en Turmero</title>
+  <style>
+    :root {
+      --bg: #050505;
+      --bg-soft: #101010;
+      --text: #ffffff;
+      --muted: #c9c9c9;
+      --red: #d70f18;
+      --red-soft: rgba(215, 15, 24, 0.25);
+      --border: rgba(255, 255, 255, 0.12);
+      --shadow: 0 25px 80px rgba(0, 0, 0, 0.55);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    section {
+      padding: 90px 7%;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 7%;
+      background: rgba(5, 5, 5, 0.72);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .logo img {
+      width: 92px;
+      height: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+      color: var(--muted);
+      font-size: 0.92rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .nav-links a:hover {
+      color: var(--red);
+    }
+
+    .nav-btn,
+    .btn-primary,
+    .btn-outline,
+    .whatsapp-btn {
+      border: 1px solid var(--red);
+      padding: 14px 24px;
+      border-radius: 4px;
+      color: var(--text);
+      background: var(--red);
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+      transition: 0.3s ease;
+      cursor: pointer;
+    }
+
+    .nav-btn:hover,
+    .btn-primary:hover,
+    .whatsapp-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(215, 15, 24, 0.35);
+    }
+
+    .btn-outline {
+      background: transparent;
+    }
+
+    .btn-outline:hover {
+      background: var(--red);
+      transform: translateY(-3px);
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      width: 28px;
+      height: 3px;
+      background: var(--text);
+      border-radius: 20px;
+    }
+
+   .hero {
+      min-height: 100vh;
+      padding: 140px 7% 70px;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+      gap: 40px;
+      position: relative;
+      overflow: hidden;
+      background: 
+      url("hero-lumiere.png") no-repeat center center/cover;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 380px;
+      height: 160px;
+      background: var(--red);
+      filter: blur(80px);
+      opacity: 0.22;
+      transform: rotate(-18deg);
+    }
+
+    .hero::before {
+      left: -90px;
+      bottom: 30px;
+    }
+
+    .hero::after {
+      right: -110px;
+      top: 70px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .eyebrow {
+      color: var(--red);
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-size: clamp(2rem, 5vw, 4rem);
+      line-height: 0.9;
+      margin-bottom: 4px;
+    }
+
+    .hero h1 {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: clamp(4rem, 12vw, 9.5rem);
+      line-height: 0.82;
+      letter-spacing: -5px;
+      margin-bottom: 28px;
+    }
+
+    .hero-subtitle {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 8px;
+      font-size: clamp(0.8rem, 2vw, 1.1rem);
+      margin-bottom: 28px;
+    }
+
+    .hero-text {
+      max-width: 520px;
+      color: #ededed;
+      font-size: 1.15rem;
+      line-height: 1.8;
+      margin-bottom: 36px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-bottom: 42px;
+    }
+
+    .location-card {
+      width: fit-content;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      padding: 18px 24px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.055);
+      box-shadow: var(--shadow);
+    }
+
+    .pin {
+      width: 38px;
+      height: 38px;
+      border: 2px solid var(--red);
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      position: relative;
+      flex: none;
+    }
+
+    .pin::after {
+      content: "";
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: var(--red);
+      border-radius: 50%;
+      top: 12px;
+      left: 12px;
+    }
+
+    .location-card strong,
+    .location-card span {
+      display: block;
+    }
+
+    .location-card span {
+      color: var(--muted);
+      margin-top: 5px;
+      font-size: 0.92rem;
+    }
+
+    .hero-image {
+      position: relative;
+      z-index: 2;
+      border-radius: 30px;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      min-height: 500px;
+      background: linear-gradient(135deg, #161616, #050505);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center right;
+    }
+
+    .hero-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(5,5,5,0.78), transparent 35%, rgba(5,5,5,0.16));
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 55px;
+    }
+
+    .section-header small {
+      color: var(--red);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      margin: 14px 0;
+      font-weight: 700;
+    }
+
+    .section-header p {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+
+    .courses-grid,
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+
+    .course-card,
+    .about-card,
+    .contact-card,
+    .gallery-card {
+      background: linear-gradient(145deg, rgba(255,255,255,0.07), rgba(255,255,255,0.025));
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: 0.35s ease;
+    }
+
+    .course-card:hover,
+    .gallery-card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(215, 15, 24, 0.65);
+    }
+
+    .course-image {
+      height: 300px;
+      background: #1a1a1a;
+      overflow: hidden;
+    }
+
+    .course-image img,
+    .gallery-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.5s ease;
+    }
+
+    .course-card:hover img,
+    .gallery-card:hover img {
+      transform: scale(1.08);
+    }
+
+    .course-content,
+    .gallery-info {
+      padding: 28px;
+    }
+
+    .course-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: var(--red);
+      display: grid;
+      place-items: center;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+
+    .course-content h3,
+    .gallery-info h3 {
+      font-size: 1.7rem;
+      margin-bottom: 12px;
+    }
+
+    .course-content p,
+    .gallery-info p {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .gallery-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .gallery-card {
+      position: relative;
+    }
+
+    .gallery-card .art-img {
+      height: 260px;
+      overflow: hidden;
+    }
+
+    .about {
+      background:
+        linear-gradient(180deg, #050505, #0c0c0c),
+        radial-gradient(circle at 10% 20%, var(--red-soft), transparent 30%);
+    }
+
+    .about-card {
+      max-width: 1000px;
+      margin: auto;
+      padding: 52px;
+      text-align: center;
+    }
+
+    .about-card p {
+      color: #e8e8e8;
+      font-size: 1.25rem;
+      line-height: 1.9;
+    }
+
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 32px;
+      align-items: stretch;
+    }
+
+    .contact-card {
+      padding: 38px;
+    }
+
+    .contact-card h2 {
+      font-size: clamp(2rem, 4vw, 3.6rem);
+      margin-bottom: 18px;
+    }
+
+    .contact-card p {
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 26px;
+    }
+
+    form {
+      display: grid;
+      gap: 16px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 16px 18px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      outline: none;
+      font: inherit;
+    }
+
+    select option {
+      background: #111;
+    }
+
+    textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--red);
+    }
+
+    .form-message {
+      color: var(--red);
+      min-height: 22px;
+      font-size: 0.95rem;
+    }
+
+    footer {
+      padding: 38px 7%;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      color: var(--muted);
+    }
+
+    footer strong {
+      color: var(--text);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a:hover {
+      color: var(--red);
+    }
+
+    @media (max-width: 980px) {
+      .nav-links,
+      .nav-btn {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .mobile-open .nav-links {
+        position: absolute;
+        top: 76px;
+        left: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 28px 7%;
+        background: rgba(5,5,5,0.96);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .hero,
+      .contact-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-image,
+      .hero-image img {
+        min-height: 460px;
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 680px) {
+      section {
+        padding: 70px 6%;
+      }
+
+      .hero {
+        padding: 120px 6% 55px;
+      }
+
+      .hero h1 {
+        letter-spacing: -2px;
+      }
+
+      .hero-subtitle {
+        letter-spacing: 4px;
+      }
+
+      .courses-grid,
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .hero-actions a {
+        text-align: center;
+      }
+
+      .about-card,
+      .contact-card {
+        padding: 30px;
+      }
+
+      .social-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  background-color: #E1306C;  /* Color de fondo de Instagram */
+  padding: 12px 24px;
+  border-radius: 30px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.social-btn:hover {
+  background-color: #c13584;  /* Color al hacer hover */
+  transform: scale(1.05);
+}
+
+.social-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+}
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar" id="navbar">
+    <a href="#inicio" class="logo" aria-label="Academia Lumière">
+      <!-- Reemplaza esta ruta por tu logo real -->
+      <img src="LOGOLUMIERE.png" alt="Logo Academia Lumière" />
+      <span>Academia Lumière</span>
+    </a>
+
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#cursos">Cursos</a></li>
+        <li><a href="#galeria">Galería</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+
+    <a class="nav-btn" href="https://wa.me/584243772331" target="_blank" rel="noopener">Escríbenos</a>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-content">
+        <p class="eyebrow">Academia</p>
+        <h1>Lumière</h1>
+        <p class="hero-subtitle">Donde el arte cobra vida</p>
+        <p class="hero-text">
+          Formamos artistas con pasión, técnica y creatividad. Descubre tu talento,
+          exprésalo y transforma el mundo a través del arte.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn-primary" href="#cursos">Conoce nuestros cursos →</a>
+          <a class="btn-outline" href="#nosotros">Sobre nosotros</a>
+        </div>
+
+        <div class="location-card">
+          <span class="pin" aria-hidden="true"></span>
+          <div>
+            <strong>Turmero, Estado Aragua</strong>
+            <span>U.E.P Colegio Bicentenario de las Independencias, Valle Lindo.</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <section id="cursos">
+      <div class="section-header">
+        <small>Expresa. Crea. Transforma.</small>
+        <h2>Descubre tu talento artístico</h2>
+        <p>Aprende en un ambiente inspirador, creativo y profesional.</p>
+      </div>
+
+      <div class="courses-grid">
+        <article class="course-card">
+          <div class="course-image">
+            <img src="curso-dibujo.png" alt="Curso de dibujo artístico" />
+          </div>
+          <div class="course-content">
+            <div class="course-icon">✏️</div>
+            <h3>Dibujo Artístico - $20 mensual</h3>
+            <p>Técnicas tradicionales y modernas para desarrollar tu creatividad en papel y lienzo. La inscripción está en $10</p> 
+            <br>
+            <p> Horário: Miércoles / 2 pm - 5 pm </p>
+          </div>
+        </article>
+
+        <article class="course-card">
+          <div class="course-image">
+            <img src="curso-actuacion.png" alt="Curso de actuación" />
+          </div>
+          <div class="course-content">
+            <div class="course-icon">🎭</div>
+            <h3>Actuación - $20 mensual</h3>
+            <p>Descubre el poder de tu voz, tu cuerpo y tus emociones en el escenario. La inscripción está en $10.</p>
+            <br>
+            <p> Horário: Sábados / 2 pm - 5 pm </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="galeria">
+      <div class="section-header">
+        <small>Galería de artes</small>
+        <h2>Obras que inspiran</h2>
+        <p>Una muestra visual del talento, la imaginación y el crecimiento de nuestros artistas. (se actualizarán cada 6 meses).</p>
+      </div>
+
+      <div class="gallery-grid">
+        <article class="gallery-card">
+          <div class="art-img"><img src="obra1.jpeg" alt="Manzana en Rojo" /></div>
+          <div class="gallery-info">
+            <h3>Atardecer en la Palma</h3>
+            <p>Un paisaje tranquilo con un toque vibrante, destacando las palmas y los colores cálidos.</p>
+          </div>
+        </article>
+
+        <article class="gallery-card">
+          <div class="art-img"><img src="obra2.jpeg" alt="Flores de Luz" /></div>
+          <div class="gallery-info">
+            <h3>Nocturna Armonía</h3>
+            <p>Un hermoso contraste entre la naturaleza y la serenidad nocturna, con luces delicadas que resaltan la flora.</p>
+          </div>
+        </article>
+
+        <article class="gallery-card">
+          <div class="art-img"><img src="obra3.jpeg" alt="Retrato en Sombras" /></div>
+          <div class="gallery-info">
+            <h3>Reflejo Tropical</h3>
+            <p>Un toque fresco y colorido, capturando la esencia de la naturaleza vibrante con un aire relajado.</p>
+          </div>
+        </article>
+
+        <article class="gallery-card">
+          <div class="art-img"><img src="obra4.png" alt="Naturaleza Creativa" /></div>
+          <div class="gallery-info">
+            <h3>Retrato de mi profesora</h3>
+            <p>Dibujo realizado por nuestra actual estudiante Valentina.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="about" id="nosotros">
+      <div class="section-header">
+        <small>Nosotros</small>
+        <h2>Un espacio para crear sin límites</h2>
+      </div>
+
+      <div class="about-card">
+        <p>
+          Academia Lumière es un espacio creativo donde niños, jóvenes y adultos descubren su talento artístico a través del dibujo, la pintura y la actuación. Nuestro objetivo es inspirar, formar y acompañar a cada estudiante en su proceso creativo.
+        </p>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <div class="contact-wrap">
+        <div class="contact-card">
+          <small class="eyebrow" style="font-size: 2rem;">Contacto</small>
+          <h2>¿Listo para comenzar tu camino artístico?</h2>
+          <p>Escríbenos y recibe información sobre horarios, cursos disponibles e inscripciones.</p>
+          <a class="whatsapp-btn" href="https://wa.me/584243772331" target="_blank" rel="noopener">Inscribirme ahora</a>
+        </div>
+
+        <div class="contact-card">
+          <form id="contactForm">
+            <input type="text" id="name" placeholder="Nombre completo" />
+            <input type="tel" id="phone" placeholder="Teléfono" />
+            <select id="course">
+              <option value="">Curso de interés</option>
+              <option>Dibujo Artístico</option>
+              <option>Actuación</option>
+            </select>
+            <textarea id="message" placeholder="Mensaje"></textarea>
+            <p class="form-message" id="formMessage"></p>
+            <button class="btn-primary" type="submit">Enviar solicitud</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      <strong>Academia Lumière</strong>
+      <p>Arte, creatividad y expresión. Turmero, Estado Aragua.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#inicio">Inicio</a>
+      <a href="#cursos">Cursos</a>
+      <a href="#galeria">Galería</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+
+    <!-- Botón de Instagram -->
+<div class="social-links">
+  <a href="https://www.instagram.com/lumiereacademia9/" target="_blank" class="social-btn">
+    Síguenos en Instagram
+  </a>
+</div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const contactForm = document.getElementById('contactForm');
+    const formMessage = document.getElementById('formMessage');
+
+    menuToggle.addEventListener('click', () => {
+      navbar.classList.toggle('mobile-open');
+    });
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navbar.classList.remove('mobile-open');
+      });
+    });
+
+    contactForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const course = document.getElementById('course').value;
+      const message = document.getElementById('message').value.trim();
+
+      if (!name || !phone || !course || !message) {
+        formMessage.textContent = 'Por favor completa todos los campos.';
+        return;
+      }
+
+      const whatsappNumber = '584243283555';
+      const text = `Hola, soy ${name}. Teléfono: ${phone}. Me interesa el curso de ${course}. Mensaje: ${message}`;
+      const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`;
+
+      formMessage.textContent = 'Redirigiendo a WhatsApp...';
+      window.open(url, '_blank');
+      contactForm.reset();
+    });
+  </script>
+</body>
+</html>
