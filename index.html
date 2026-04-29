@@ -157,28 +157,75 @@
     }
     
 #color-mixer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 18px;
-  background: linear-gradient(145deg, rgba(255,255,255,0.07), rgba(255,255,255,0.025));
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  color: white;
-  padding: 70px 7%;
+  padding: 90px 7%;
   text-align: center;
+  color: white;
+
+  background:
+    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.75)),
+    url("mixer.png") no-repeat center/cover;
+}
+
+.mixer-box {
+  position: relative;
+  width: 100%;
+  max-width: 430px;
+  margin: auto;
+  padding: 50px 30px;
+  border-radius: 30px;
+  background: rgba(0, 0, 0, 0.75);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.mixer-box::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 34px;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    #ff6a00,
+    #ff0000,
+    #ffae00,
+    transparent
+  );
+  animation: neonBorder 3s linear infinite;
+  z-index: -2;
+}
+
+.mixer-box::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  background: rgba(0, 0, 0, 0.85);
+  border-radius: 27px;
+  z-index: -1;
+}
+
+@keyframes neonBorder {
+  0% {
+    transform: rotate(0deg) scale(1.5);
+  }
+
+  100% {
+    transform: rotate(360deg) scale(1.5);
+  }
 }
 
 .color-selector {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  margin: 18px 0;
   font-weight: bold;
 }
 
 input[type="color"] {
   width: 120px;
   height: 55px;
+  margin: auto;
   border: 2px solid var(--red);
   border-radius: 12px;
   cursor: pointer;
@@ -195,6 +242,7 @@ input[type="color"] {
   font-weight: bold;
   border-radius: 8px;
   text-transform: uppercase;
+  margin: 18px 0;
 }
 
 #mixButton:hover {
@@ -202,72 +250,13 @@ input[type="color"] {
   box-shadow: 0 12px 35px rgba(215, 15, 24, 0.35);
 }
 
-#result {
-  width: 220px;
-  height: 120px;
-  margin-top: 10px;
-  border: 2px solid #fff;
-  border-radius: 18px;
-}
-
-    #color-mixer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #222;
-  color: white;
-  padding: 20px;
-}
-
-.color-selector {
-  margin: 10px 0;
-}
-
-input[type="color"] {
-  width: 100px;
-  height: 40px;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-}
-
-button {
-  background-color: #f39c12;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  margin-top: 20px;
-  font-size: 16px;
-  border-radius: 5px;
-}
-
-button:hover {
-  background-color: #e67e22;
-}
-
 .color-box {
-  margin-top: 20px;
-  width: 250px;
-  height: 100px;
-  border-radius: 20px;
-  background-color: rgba(0, 0, 0, 0.7); /* Fondo negro semitransparente */
-  border: 2px solid transparent; /* Borde invisible, solo para efecto */
-  box-shadow: 0 0 10px 5px rgba(255, 165, 0, 0.8); /* Luz de neón naranjada */
-  animation: neonGlow 1.5s infinite alternate;
-}
-
-/* Animación para el borde de neón */
-@keyframes neonGlow {
-  0% {
-    box-shadow: 0 0 10px 5px rgba(255, 165, 0, 0.8);
-  }
-  50% {
-    box-shadow: 0 0 20px 10px rgba(255, 165, 0, 1);
-  }
-  100% {
-    box-shadow: 0 0 10px 5px rgba(255, 165, 0, 0.8);
-  }
+  width: 150px;
+  height: 85px;
+  margin: 18px auto 0;
+  border-radius: 18px;
+  background: #ff0000;
+  border: 2px solid white;
 }
     
     .hero::before,
@@ -891,23 +880,27 @@ button:hover {
     </section>
 
      <section id="color-mixer">
-  <h2>Mezclador de Colores</h2>
-  <p>Selecciona dos colores para ver el resultado de su mezcla:</p>
+  <div class="mixer-box">
 
-  <div class="color-selector">
-    <label for="color1">Color 1</label>
-    <input type="color" id="color1" name="color1" value="#ff0000">
+    <h2>Mezclador de Colores</h2>
+    <p>Selecciona dos colores para ver el resultado de su mezcla:</p>
+
+    <div class="color-selector">
+      <label for="color1">Color 1</label>
+      <input type="color" id="color1" name="color1" value="#ff0000">
+    </div>
+
+    <div class="color-selector">
+      <label for="color2">Color 2</label>
+      <input type="color" id="color2" name="color2" value="#0000ff">
+    </div>
+
+    <button id="mixButton">Mezclar</button>
+
+    <h3>Resultado:</h3>
+    <div id="result" class="color-box"></div>
+
   </div>
-
-  <div class="color-selector">
-    <label for="color2">Color 2</label>
-    <input type="color" id="color2" name="color2" value="#0000ff">
-  </div>
-
-  <button id="mixButton">Mezclar</button>
-
-  <h3>Resultado:</h3>
-  <div id="result" style="width: 200px; height: 100px; background-color: #ff0000;"></div>
 </section>
 
 
